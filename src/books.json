@@ -1,0 +1,32 @@
+[
+  {
+    "name": "A Startup Enxuta",
+    "author": "Eric Ries",
+    "publisher": "Editora Sextante",
+    "year": 2011
+  },
+  {
+      "name": "O Lado Difícil das Situações Difíceis",
+      "author": "Ben Horowitz",
+      "publisher": "Editora Alta Books",
+      "year": 2014
+  },
+  {
+      "name": "A Arte da Guerra",
+      "author": "Sun Tzu",
+      "publisher": "Editora Penguin-Companhia",
+      "year": 2005
+  },
+  {
+      "name": "O Poder do Hábito",
+      "author": "Charles Duhigg",
+      "publisher": "Editora Objetiva",
+      "year": 2012
+  },
+  {
+      "name": "Mindset: A Nova Psicologia do Sucesso",
+      "author": "Carol S. Dweck",
+      "publisher": "Editora Objetiva",
+      "year": 2006
+  }
+]
