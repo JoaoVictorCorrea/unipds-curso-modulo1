@@ -1,11 +1,12 @@
 void main() throws IOException {
-    try (ServerSocket serverSocket = new ServerSocket(8000)){
-        System.out.println("Book Server is running on port 8000...");
+    try(ExecutorService executorService = Executors.newFixedThreadPool(50)) {
+        try (ServerSocket serverSocket = new ServerSocket(8000)) {
+            System.out.println("Book Server is running on port 8000...");
 
-        while (true) {
-            Socket clientSocket = serverSocket.accept();
-            Thread thread = new Thread(() -> processRequest(clientSocket));
-            thread.start();
+            while (true) {
+                Socket clientSocket = serverSocket.accept();
+                executorService.execute(() -> processRequest(clientSocket));
+            }
         }
     }
 }
