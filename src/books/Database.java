@@ -1,13 +1,13 @@
 package books;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class Database {
 
-    private final Map<Long, Book> books = new HashMap<>();
+    private final Map<Long, Book> books = new ConcurrentSkipListMap<>();
 
     public Database() {
         Book book1 = new Book(1L, "A Startup Enxuta", "Eric Ries", "Editora Sextant", 2011);
