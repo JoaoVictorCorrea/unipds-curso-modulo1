@@ -1,8 +1,9 @@
 import books.Book;
 import books.Database;
+import books.InMemoryDatabase;
 import com.google.gson.Gson;
 
-public static final Database database = new Database();
+public static final Database database = new InMemoryDatabase();
 
 void main() throws IOException {
     try (ExecutorService executorService = Executors.newFixedThreadPool(50)) {

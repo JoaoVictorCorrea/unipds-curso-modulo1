@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentSkipListMap;
 
-public class Database {
+public class InMemoryDatabase implements Database {
 
     private final Map<Long, Book> books = new ConcurrentSkipListMap<>();
 
-    public Database() {
+    public InMemoryDatabase() {
         Book book1 = new Book(1L, "A Startup Enxuta", "Eric Ries", "Editora Sextant", 2011);
         books.put(book1.id(), book1);
 
@@ -26,10 +26,17 @@ public class Database {
         books.put(book5.id(), book5);
     }
 
+    @Override
     public List<Book> getLibrary() {
         return new LinkedList<>(books.values());
     }
 
+    @Override
+    public int getTotalBooks() {
+        return this.books.size();
+    }
+
+    @Override
     public void addBook(Book book) {
         books.put(book.id(), book);
     }
