@@ -1,0 +1,6 @@
+mai. 19, 2026 8:25:58 PM books.BookServerWithSocket main
+INFORMAÇÕES: Book Server is running on port 8000...
+mai. 19, 2026 8:26:10 PM books.BookServerWithSocket processRequest
+DETALHADO: Reading file: C:\Unipds\curso-modulo1\src\main\java\books\books.json
+mai. 19, 2026 8:26:35 PM books.BookServerWithSocket processRequest
+DETALHADO: Reading file: C:\Unipds\curso-modulo1\src\main\java\books\books.json
