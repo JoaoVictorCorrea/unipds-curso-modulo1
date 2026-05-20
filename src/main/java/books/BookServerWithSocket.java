@@ -10,7 +10,12 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.YearMonth;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Level;
@@ -107,6 +112,54 @@ public class BookServerWithSocket {
                     clientOut.println("Content-Type: application/json; charset=UTF-8");
                     clientOut.println();
                     clientOut.println();
+                } else if (method.equals("GET") && (requestURI.equals("/") || requestURI.equals("/en"))) {
+                    List<Book> library = database.getLibrary();
+                    Locale locale = "/en".equals(requestURI) ? Locale.US : Locale.of("pt", "BR");
+                    DateTimeFormatter formatterDateHour = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG).withLocale(locale);
+                    DateTimeFormatter formatterYearMonth = DateTimeFormatter.ofPattern("MMMM/yyyy").withLocale(locale);
+
+                    StringBuilder htmlBooksBuilder = new StringBuilder();
+                    for(Book book : library) {
+                        String htmlBook = """
+                                <article>
+                                    <h3>%s</h3>
+                                    <p>%s (%d)</p>
+                                    <mark>%s</mark>
+                                </article>
+                                """.formatted(book.name(), book.author(), book.year(), book.publisher());
+                        htmlBooksBuilder.append(htmlBook);
+                    }
+
+                    String html = """
+                            <!DOCTYPE html>
+                            <html>
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <title>Library</title>
+                                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.0/css/pico.min.css">
+                                </head>
+                                <body>
+                                    <header class="container">
+                                        <h1>Library</h1>
+                                        <p>Here you can find the best books in the world!</p>
+                                    </header>
+                                    <main class="container">
+                                    %s
+                                    </main>
+                            
+                                    <footer class="container">
+                                        <p><small><em>Books from AI in %s</em></small></p>
+                                        <p><strong>Books Jhon's</strong> All Rights Reserved - %s</p>
+                                    </footer>
+                                </body>
+                            </html>
+                            """.formatted(htmlBooksBuilder.toString(), formatterDateHour.format(ZonedDateTime.now()), formatterYearMonth.format(YearMonth.now()));
+
+
+                    clientOut.print("HTTP/1.1 200 OK\r\n");
+                    clientOut.print("Content-Type: text/html; charset=UTF-8\r\n\r\n");
+                    clientOut.print(html);
+                    clientOut.print("\r\n");
                 } else {
                     logger.warning(() -> "URI não encontrada: " + requestURI);
                     clientOut.println("HTTP/1.1 404 Not Found");
