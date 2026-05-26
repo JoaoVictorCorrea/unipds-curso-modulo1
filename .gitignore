@@ -7,6 +7,9 @@ gradle/
 .kotlin
 .idea/
 .gradle
+*.lck
+*.log
+*.ser
 
 ### Eclipse ###
 .apt_generated

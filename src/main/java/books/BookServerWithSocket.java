@@ -2,12 +2,15 @@ package books;
 
 import com.google.gson.Gson;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.YearMonth;
@@ -82,13 +85,33 @@ public class BookServerWithSocket {
                 } else if (method.equals("GET") && requestURI.equals("/books")) {
                     List<Book> library = database.getLibrary();
 
-                    Gson gson = new Gson();
-                    String json = gson.toJson(library);
+                    String mediaType = "application/json";
+                    for (int i = 1; i < requestLineAndHeadersChunks.length; i++) {
+                        String header = requestLineAndHeadersChunks[i];
+                        logger.fine(header);
 
-                    clientOut.println("HTTP/1.1 200 OK");
-                    clientOut.println("Content-Type: application/json; charset=UTF-8");
-                    clientOut.println();
-                    clientOut.println(json);
+                        if (header.contains("Accept")) {
+                            mediaType = header.replace("Accept: ", "");
+                            logger.info(mediaType);
+                        }
+                    }
+
+                    byte[] body;
+
+                    if("application/x-java-serialized-object".equals(mediaType)) {
+                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                        ObjectOutputStream oos = new ObjectOutputStream(bos);
+                        oos.writeObject(library);
+                        body = bos.toByteArray();
+                    } else {
+                        Gson gson = new Gson();
+                        String json = gson.toJson(library);
+                        body = json.getBytes(StandardCharsets.UTF_8);
+                    }
+
+                    clientOS.write("HTTP/1.1 200 OK\r\n".getBytes(StandardCharsets.UTF_8));
+                    clientOut.write(("Content-Type: " + mediaType + "; charset=UTF-8\r\n\r\n").getBytes(StandardCharsets.UTF_8));
+                    clientOut.write(body);
                 } else if (method.equals("GET") && requestURI.equals("/books/total")) {
                     List<Book> library = database.getLibrary();
                     int total = library.size();

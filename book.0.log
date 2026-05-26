@@ -1,6 +1,24 @@
-mai. 19, 2026 8:25:58 PM books.BookServerWithSocket main
+mai. 26, 2026 8:07:23 PM books.BookServerWithSocket main
 INFORMAÇÕES: Book Server is running on port 8000...
-mai. 19, 2026 8:26:10 PM books.BookServerWithSocket processRequest
-DETALHADO: Reading file: C:\Unipds\curso-modulo1\src\main\java\books\books.json
-mai. 19, 2026 8:26:35 PM books.BookServerWithSocket processRequest
-DETALHADO: Reading file: C:\Unipds\curso-modulo1\src\main\java\books\books.json
+mai. 26, 2026 8:07:31 PM books.BookServerWithSocket processRequest
+DETALHADO: Host: localhost:8000
+mai. 26, 2026 8:07:31 PM books.BookServerWithSocket processRequest
+DETALHADO: User-Agent: curl/8.11.0
+mai. 26, 2026 8:07:31 PM books.BookServerWithSocket processRequest
+DETALHADO: Accept: application/x-java-serialized-object
+mai. 26, 2026 8:07:31 PM books.BookServerWithSocket processRequest
+INFORMAÇÕES: application/x-java-serialized-object
+mai. 26, 2026 8:09:33 PM books.BookServerWithSocket processRequest
+DETALHADO: Host: localhost:8000
+mai. 26, 2026 8:09:33 PM books.BookServerWithSocket processRequest
+DETALHADO: User-Agent: curl/8.11.0
+mai. 26, 2026 8:09:33 PM books.BookServerWithSocket processRequest
+DETALHADO: Accept: application/x-java-serialized-object
+mai. 26, 2026 8:09:33 PM books.BookServerWithSocket processRequest
+INFORMAÇÕES: application/x-java-serialized-object
+mai. 26, 2026 8:11:44 PM books.BookServerWithSocket processRequest
+ADVERTÊNCIA: URI não encontrada: Accept:
+mai. 26, 2026 8:12:01 PM books.BookServerWithSocket processRequest
+ADVERTÊNCIA: URI não encontrada: Accept:
+mai. 26, 2026 8:12:39 PM books.BookServerWithSocket processRequest
+ADVERTÊNCIA: URI não encontrada: application/x-java-serialized-object
